@@ -1,0 +1,3 @@
+library(functionsframework)
+
+createApp()
