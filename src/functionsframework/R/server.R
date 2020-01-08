@@ -31,6 +31,7 @@
 #'   - ANY (all methods) '/*' for executing functions (only for servers handling
 #'     functions with HTTP trigger).
 #'
+#' @return None
 #' @export
 createApp <- function() {
   # Get CLI args
@@ -60,7 +61,7 @@ createApp <- function() {
   if (!file.exists(opt$source)) {
     stop(paste("File", opt$source, "that is expected to define function doesn't exist", sep=" "))
   }
-  
+
   # Load source
   args <- commandArgs()
   file <- sub("--file=", "", args[4])

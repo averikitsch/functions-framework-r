@@ -1,6 +1,6 @@
-# Functions Framework for Python
+# Functions Framework for R
 An open source FaaS (Function as a service) framework for writing portable
-Python functions -- brought to you by the Google Cloud Functions team.
+R functions.
 
 The Functions Framework lets you write lightweight functions that run in many
 different environments, including:
@@ -12,9 +12,10 @@ different environments, including:
 
 The framework allows you to go from:
 
-```python
-def hello(request):
-    return "Hello world!"
+```R
+hello <- function(req, res){
+  return("Hello World!")
+}
 ```
 
 To:
@@ -35,83 +36,42 @@ All without needing to worry about writing an HTTP server or complicated request
 
 # Installation
 
-Add the Functions Framework to your `requirements.txt` file:
-
 ```sh
-pip install functions-framework
-```
-
-Or, for deployment, add the Functions Framework to your `requirements.txt` file:
-
-```
-functions-framework==1.2.3
+library(devtools)
+install_github("averikitsch/functions-framework-r/src/functionsframework")
 ```
 
 # Quickstart: Hello, World on your local machine
 
-Create an `main.py` file with the following contents:
+Create a `main.R` file with the following contents:
 
-```python
-def hello(request):
-    return "Hello world!"
+```R
+hello <- function(req, res){
+  return("Hello World!")
+}
 ```
+
+Create a `create-app.R` file with the following contents:
+
+```R
+library(functionsframework)
+createApp()
+```
+or add to the end of `main.R`.
 
 Run the following command:
 
 ```sh
-functions-framework --target=hello
+Rscript create-app.R --target=hello
 ```
 
 Open http://localhost:8080/ in your browser and see *Hello world!*.
 
-
-# Quickstart: Set up a new project
-
-Create a `main.py` file with the following contents:
-
-```python
-def hello(request):
-    return "Hello world!"
-```
-
-Now install the Functions Framework:
-
-```sh
-pip install functions-framework
-```
-
-Use the `functions-framework` command to start the built-in local development server:
-
-```sh
-functions-framework --target hello
- * Serving Flask app "hello" (lazy loading)
- * Environment: production
-   WARNING: This is a development server. Do not use it in a production deployment.
-   Use a production WSGI server instead.
- * Debug mode: off
- * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
-```
-
-Send requests to this function using `curl` from another terminal window:
-
-```sh
-curl localhost:8080
-# Output: Hello world!
-```
-
 # Run your function on serverless platforms
-
-## Google Cloud Functions
-
-This Functions Framework is based on the [Python Runtime on Google Cloud Functions](https://cloud.google.com/functions/docs/concepts/python-runtime).
-
-On Cloud Functions, using the Functions Framework is not necessary: you don't need to add it to your `requirements.txt` file.
-
-After you've written your function, you can simply deploy it from your local machine using the `gcloud` command-line tool. [Check out the Cloud Functions quickstart](https://cloud.google.com/functions/docs/quickstart).
 
 ## Cloud Run/Cloud Run on GKE
 
-Once you've written your function and added the Functions Framework to your `requirements.txt` file, all that's left is to create a container image. [Check out the Cloud Run quickstart](https://cloud.google.com/run/docs/quickstarts/build-and-deploy) for Python to create a container image and deploy it to Cloud Run. You'll write a `Dockerfile` when you build your container. This `Dockerfile` allows you to specify exactly what goes into your container (including custom binaries, a specific operating system, and more).
+Once you've written your function and added the Functions Framework to your file, all that's left is to create a container image. [Check out the Cloud Run quickstart](examples/) to create a container image and deploy it to Cloud Run. You'll write a `Dockerfile` when you build your container. This `Dockerfile` allows you to specify exactly what goes into your container (including custom binaries, a specific operating system, and more).
 
 If you want even more control over the environment, you can [deploy your container image to Cloud Run on GKE](https://cloud.google.com/run/docs/quickstarts/prebuilt-deploy-gke). With Cloud Run on GKE, you can run your function on a GKE cluster, which gives you additional control over the environment (including use of GPU-based instances, longer timeouts and more).
 
@@ -128,25 +88,7 @@ Command-line flag         | Environment variable      | Description
 `--port`                    | `PORT`                    | The port on which the Functions Framework listens for requests. Default: `8080`
 `--target`         | `FUNCTION_TARGET`         | The name of the exported function to be invoked in response to requests. Default: `function`
 `--signature-type` | `FUNCTION_SIGNATURE_TYPE` | The signature used when writing your function. Controls unmarshalling rules and determines which arguments are used to invoke your function. Default: `http`; accepted values: `http` or `event`
-`--source`         | `FUNCTION_SOURCE`         | The path to the file containing your function. Default: `main.py` (in the current working directory)
-
-# Enable CloudEvents
-
-The Functions Framework can unmarshall incoming [CloudEvents](http://cloudevents.io) payloads to `data` and `context` objects.  These will be passed as arguments to your function when it receives a request.  Note that your function must use the event-style function signature:
-
-```python
-def hello(data, context):
-    print(data)
-    print(context)
-```
-
-To enable automatic unmarshalling, set the function signature type to `event` using the `--signature-type` command-line flag or the `FUNCTION_SIGNATURE_TYPE` environment variable. By default, the HTTP signature type will be used and automatic event unmarshalling will be disabled.
-
-For more details on this signature type, check out the Google Cloud Functions documentation on [background functions](https://cloud.google.com/functions/docs/writing/background#cloud_pubsub_example).
-
-# Advanced Examples
-
-More advanced guides can be found in the [`examples/`](./examples/) directory.
+`--source`         | `FUNCTION_SOURCE`         | The path to the file containing your function. Default: `main.R` (in the current working directory)
 
 # Contributing
 
