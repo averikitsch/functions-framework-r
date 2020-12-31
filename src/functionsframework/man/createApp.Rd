@@ -2,7 +2,7 @@
 % Please edit documentation in R/server.R
 \name{createApp}
 \alias{createApp}
-\title{Create App
+\title{createApp()
 Functions framework entry point that configures and starts web server
 that runs user's code on HTTP request.
 The following environment variables can be set to configure the framework:
@@ -15,28 +15,15 @@ The following environment variables can be set to configure the framework:
     signature, 'http' for function signature with HTTP request and HTTP
     response arguments, or 'event' for function signature with arguments
     unmarshalled from an incoming request.
-The server accepts following HTTP requests:
-  - POST '/*' for executing functions (only for servers handling functions
-    with non-HTTP trigger).
-  - ANY (all methods) '/*' for executing functions (only for servers handling
-    functions with HTTP trigger).}
+  - FUNCTION_SOURCE - The path to the file containing your function.
+    Default: main.R (in the current working directory)}
 \usage{
 createApp()
 }
+\value{
+None
+}
 \description{
-Create App
-Functions framework entry point that configures and starts web server
-that runs user's code on HTTP request.
-The following environment variables can be set to configure the framework:
-  - PORT - defines the port on which this server listens to all HTTP
-    requests.
-  - FUNCTION_TARGET - defines the name of the function within user's
-    node module to execute. If such a function is not defined,
-    then falls back to 'function' name.
-  - FUNCTION_SIGNATURE_TYPE - defines the type of the client function
-    signature, 'http' for function signature with HTTP request and HTTP
-    response arguments, or 'event' for function signature with arguments
-    unmarshalled from an incoming request.
 The server accepts following HTTP requests:
   - POST '/*' for executing functions (only for servers handling functions
     with non-HTTP trigger).

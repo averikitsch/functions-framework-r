@@ -1,6 +1,7 @@
 ---
 title: "functions-framework"
 output: rmarkdown::html_vignette
+author: Averi Kitsch
 vignette: >
   %\VignetteIndexEntry{functions-framework}
   %\VignetteEngine{knitr::rmarkdown}
@@ -14,6 +15,35 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(functionsframework)
+# Installation
+
+```R
+library(devtools)
+install_github("averikitsch/functions-framework-r/src/functionsframework")
 ```
+
+# Quickstart: Hello, World on your local machine
+
+Create a `main.R` file with the following contents:
+
+```R
+hello <- function(req, res){
+  return("Hello World!")
+}
+```
+
+Create a `create-app.R` file with the following contents:
+
+```R
+library(functionsframework)
+createApp()
+```
+or add to the end of `main.R`.
+
+Run the following command:
+
+```sh
+Rscript create-app.R --target=hello
+```
+
+Open http://localhost:8080/ in your browser and see *Hello world!*.

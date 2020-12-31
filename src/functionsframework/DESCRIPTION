@@ -1,23 +1,23 @@
 Package: functionsframework
 Title: Functions Framework
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R:
     person(given = "Averi",
            family = "Kitsch",
            role = c("aut", "cre"),
-           email = "akitsch@google.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+           email = "akitsch@google.com")
 Description: FaaS (Function as a service) framework for writing portable R
   functions. The functions framework configures an entry point that starts R
   server that runs user's code on HTTP request.
-Imports:
+Depends:
+  R (>= 3.1.0),
   plumber (>= 0.4.6),
   optparse (>= 1.6.4)
 License: Apache-2.0
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.0.2
-Suggests: 
+RoxygenNote: 7.1.1
+Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr

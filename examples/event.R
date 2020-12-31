@@ -12,5 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-library(functionsframework)
-createApp()
+HelloEvent <- function(data, context){
+  print(data)
+  print(context)
+  return("Hello Event!")
+}
